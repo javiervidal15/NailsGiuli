@@ -1,0 +1,93 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?573dfe8aabad85c55cfa6d70f04bbc79") format("truetype"),
+url("./flaticon.woff?573dfe8aabad85c55cfa6d70f04bbc79") format("woff"),
+url("./flaticon.woff2?573dfe8aabad85c55cfa6d70f04bbc79") format("woff2"),
+url("./flaticon.eot?573dfe8aabad85c55cfa6d70f04bbc79#iefix") format("embedded-opentype"),
+url("./flaticon.svg?573dfe8aabad85c55cfa6d70f04bbc79#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "nail-polish": "\f101",
+    "manicure": "\f102",
+    "nail": "\f103",
+    "finger-with-nail": "\f104",
+    "nail-1": "\f105",
+    "nail-polish-1": "\f106",
+    "nail-polish-2": "\f107",
+    "nail-polish-3": "\f108",
+    "nail-polish-4": "\f109",
+    "nail-polish-5": "\f10a",
+    "nail-polish-6": "\f10b",
+    "nail-2": "\f10c",
+    "nail-file": "\f10d",
+    "nail-3": "\f10e",
+    "finger": "\f10f",
+    "nail-art": "\f110",
+    "pedicure": "\f111",
+);
+
+.flaticon-nail-polish:before {
+    content: map-get($flaticon-map, "nail-polish");
+}
+.flaticon-manicure:before {
+    content: map-get($flaticon-map, "manicure");
+}
+.flaticon-nail:before {
+    content: map-get($flaticon-map, "nail");
+}
+.flaticon-finger-with-nail:before {
+    content: map-get($flaticon-map, "finger-with-nail");
+}
+.flaticon-nail-1:before {
+    content: map-get($flaticon-map, "nail-1");
+}
+.flaticon-nail-polish-1:before {
+    content: map-get($flaticon-map, "nail-polish-1");
+}
+.flaticon-nail-polish-2:before {
+    content: map-get($flaticon-map, "nail-polish-2");
+}
+.flaticon-nail-polish-3:before {
+    content: map-get($flaticon-map, "nail-polish-3");
+}
+.flaticon-nail-polish-4:before {
+    content: map-get($flaticon-map, "nail-polish-4");
+}
+.flaticon-nail-polish-5:before {
+    content: map-get($flaticon-map, "nail-polish-5");
+}
+.flaticon-nail-polish-6:before {
+    content: map-get($flaticon-map, "nail-polish-6");
+}
+.flaticon-nail-2:before {
+    content: map-get($flaticon-map, "nail-2");
+}
+.flaticon-nail-file:before {
+    content: map-get($flaticon-map, "nail-file");
+}
+.flaticon-nail-3:before {
+    content: map-get($flaticon-map, "nail-3");
+}
+.flaticon-finger:before {
+    content: map-get($flaticon-map, "finger");
+}
+.flaticon-nail-art:before {
+    content: map-get($flaticon-map, "nail-art");
+}
+.flaticon-pedicure:before {
+    content: map-get($flaticon-map, "pedicure");
+}

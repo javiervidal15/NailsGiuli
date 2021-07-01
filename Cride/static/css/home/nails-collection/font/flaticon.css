@@ -1,0 +1,71 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("./flaticon.ttf?573dfe8aabad85c55cfa6d70f04bbc79") format("truetype"),
+url("./flaticon.woff?573dfe8aabad85c55cfa6d70f04bbc79") format("woff"),
+url("./flaticon.woff2?573dfe8aabad85c55cfa6d70f04bbc79") format("woff2"),
+url("./flaticon.eot?573dfe8aabad85c55cfa6d70f04bbc79#iefix") format("embedded-opentype"),
+url("./flaticon.svg?573dfe8aabad85c55cfa6d70f04bbc79#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-nail-polish:before {
+    content: "\f101";
+}
+.flaticon-manicure:before {
+    content: "\f102";
+}
+.flaticon-nail:before {
+    content: "\f103";
+}
+.flaticon-finger-with-nail:before {
+    content: "\f104";
+}
+.flaticon-nail-1:before {
+    content: "\f105";
+}
+.flaticon-nail-polish-1:before {
+    content: "\f106";
+}
+.flaticon-nail-polish-2:before {
+    content: "\f107";
+}
+.flaticon-nail-polish-3:before {
+    content: "\f108";
+}
+.flaticon-nail-polish-4:before {
+    content: "\f109";
+}
+.flaticon-nail-polish-5:before {
+    content: "\f10a";
+}
+.flaticon-nail-polish-6:before {
+    content: "\f10b";
+}
+.flaticon-nail-2:before {
+    content: "\f10c";
+}
+.flaticon-nail-file:before {
+    content: "\f10d";
+}
+.flaticon-nail-3:before {
+    content: "\f10e";
+}
+.flaticon-finger:before {
+    content: "\f10f";
+}
+.flaticon-nail-art:before {
+    content: "\f110";
+}
+.flaticon-pedicure:before {
+    content: "\f111";
+}

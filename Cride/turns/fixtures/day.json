@@ -1,0 +1,100 @@
+[
+    {
+        "model": "turns.day",
+        "fields": {
+            "name": "Lunes"
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.day",
+        "fields": {
+            "name": "Martes"
+        },
+        "pk": 2
+    },
+        {
+        "model": "turns.day",
+        "fields": {
+            "name": "Miercoles"
+        },
+        "pk": 3
+    },
+        {
+        "model": "turns.day",
+        "fields": {
+            "name": "Jueves"
+        },
+        "pk": 4
+    },
+        {
+        "model": "turns.day",
+        "fields": {
+            "name": "Viernes"
+        },
+        "pk": 5
+    },
+        {
+        "model": "turns.day",
+        "fields": {
+            "name": "Sabado"
+        },
+        "pk": 6
+    },
+    {
+        "model": "turns.day",
+        "fields": {
+            "name": "Domingo"
+        },
+        "pk": 7
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Feriado",
+            "all_services": "False"
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Vacaciones",
+            "all_services": "False"
+        },
+        "pk": 2
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Causa de fuerza mayor",
+            "all_services": "False"
+        },
+        "pk": 3
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Feriado",
+            "all_services": "True"
+        },
+        "pk": 4
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Vacaciones",
+            "all_services": "True"
+        },
+        "pk": 5
+    },
+    {
+        "model": "turns.typeunavailableday",
+        "fields": {
+            "name": "Causa de fuerza mayor",
+            "all_services": "True"
+        },
+        "pk": 6
+    }
+  ]
+  

@@ -1,0 +1,52 @@
+[
+    {
+        "model": "turns.gender_now",
+        "fields": {
+            "name": "Femenino"
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.gender_now",
+        "fields": {
+            "name": "Masculino"
+        },
+        "pk": 2
+    },
+    {
+        "model": "turns.gender_now",
+        "fields": {
+            "name": "Otro"
+        },
+        "pk": 3
+    },
+    {
+        "model": "turns.orientation_now",
+        "fields": {
+            "name": "Hombres"
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.orientation_now",
+        "fields": {
+            "name": "Mujeres"
+        },
+        "pk": 2
+    },
+    {
+        "model": "turns.orientation_now",
+        "fields": {
+            "name": "Ambos"
+        },
+        "pk": 3
+    },
+    {
+        "model": "turns.orientation_now",
+        "fields": {
+            "name": "Otro"
+        },
+        "pk": 4
+    }
+  ]
+  

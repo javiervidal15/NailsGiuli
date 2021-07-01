@@ -1,0 +1,147 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="{% static 'css/dashboard/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' %}" rel="stylesheet">
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="{% static 'common/img/favicon.png' %}" />
+
+    <link href="{% static 'css/dashboard/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/dashboard/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dashboard/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:800" rel="stylesheet">
+     <!-- Sweet Alert -->
+    <link href="{% static 'css/dashboard/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top" style="background-color: white;" class="">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            {% if entity.get_image %}
+                <img src="{{entity.get_image}}" class="img-responsive img-circle center-block img-lg m-t-md" >
+            {% endif %}
+            <h2 class="text-center m-b-lg" style="font-family: Assistant;"><strong>{{entity.get_name}}</strong></h2>
+        </div>
+        {% if services %}
+        <div class="col-lg-12">
+            <div class="text-center">
+                <div class="ibox">
+                        <div class="ibox-content">
+                            <h4>Servicios</h4>
+                            <p class="small">¿Que vas a reservar? </p>
+
+                            <ul id="servicio" class="sortable-list connectList agile-list" id="todo">
+                                {% for ser in services.all %}
+                                <li id="{{ser.id}}" class="info-element" data-toggle="modal" href="#modal-form">
+                                    <h3 >{{ser.get_name}}</h3>
+
+                                    <div class="agile-detail">
+                                        <div class="text-left">
+                                        {% if ser.get_price %}
+                                            Precio: ${{ser.get_price}} </br>
+                                        {%else%}
+                                            Precio: Sin especificar </br>
+                                        {% endif %}
+                                        Duracion aprox.: {{ser.get_duration}} min.
+                                        </div>
+                                        <div>
+                                            <a id="" class="pull-right btn btn-xs btn-success">Reservar</a></br> 
+                                        </div>
+                                    </div>
+                                </li>
+                                  {% endfor %}
+                            </ul>
+                        </div>
+                    </div>              
+            </div>
+            
+            <div id="modal-form" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <h3 class="m-t-none m-b text-center">Reserva tu turno</h3>
+                                <form role="form" action="." method="post">
+                                        {% csrf_token %}
+
+                                    <div class="col-sm-6 b-r">
+
+                                        <p>Selecciona el horario de tu turno.</p>
+
+                                        <div class="form-group">
+                                            <label>Fecha</label>
+
+                                            <select id="id_turn_date" name="turn_date" class="form-control">
+                                             
+                                            </select>
+                                        </div>
+                                        <div class="form-group"><label>Hora</label>
+                                            <select id="id_turn_hour" name="turn_hour" class="form-control">
+                                                
+                                            </select>
+                                        </div>                                    
+                                    </div>
+                                    <div class="col-sm-6 b-r">
+
+                                        <p>Completa los siguientes datos</p>
+
+                                        <div class="form-group">
+                                            <label>Nombre Completo</label> 
+                                            {{form.name}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label> 
+                                            {{form.email}}
+                                        </div>
+
+                                        {{form.turn_service}}
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" type="submit">
+                                            <strong>Reservar</strong>
+                                        </button>        
+                                    </div>   
+                                </form>                  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <button type="button" class="btn btn-success btn-xs center-block" data-toggle="modal" data-target="#myModal6">
+                                    Mis turnos reservados
+            </button>
+            {% include 'turn_cancel_form.html' %}
+
+        </div>
+        {% else %}
+            <p>No hay servicios disponibles</p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="{% static 'js/dashboard/jquery-2.1.1.js' %}"></script>
+<script src="{% static 'js/dashboard/bootstrap.min.js' %}"></script>
+<!-- Sweet alert -->
+<script src="{% static 'js/dashboard/plugins/sweetalert/sweetalert.min.js' %}"></script>
+<script src="{% static 'js/turns/new_turn.js' %}"></script>
+<script src="{% static 'js/turns/cancel_turn.js' %}"></script>
+{% if not_turn %}
+<script>
+    $(document).ready(function(){
+        swal({
+            title:"No se reservo el turno",
+            text: "{{not_turn}}",
+        })
+    });
+</script>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,49 @@
+[
+    {
+        "model": "turns.stateturn",
+        "fields": {
+            "name": "Asignado",
+            "description": "El turno se asigno a un cliente"
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.assigned",
+        "fields": {
+        },
+        "pk": 1
+    },
+    {
+        "model": "turns.stateturn",
+        "fields": {
+            "name": "No asistido",
+            "description": "El cliente no asistio al turno"
+        },
+        "pk": 2
+    },
+    {
+        "model": "turns.notassisted",
+        "fields": {
+        },
+        "pk": 2
+    },
+
+    {
+        "model": "turns.stateturn",
+        "fields": {
+            "name": "Completado",
+            "description": "El turno ha terminado exitosamente"
+        },
+        "pk": 3
+    },
+    {
+        "model": "turns.completed",
+        "fields": {
+        },
+        "pk": 3
+    }
+
+
+
+
+]

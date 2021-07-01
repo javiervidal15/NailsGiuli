@@ -1,0 +1,66 @@
+{% load static %}
+<html>
+    <head>
+    {% block head %}
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Style-->
+        <link href="{% static 'css/common/bootstrap-social.css' %}" rel="stylesheet">
+        <link href="{% static 'fonts/css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/home/bootstrap.min.css' %}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home/login.css' %}">
+
+        <!--Javascript-->
+        <script src="{% static 'js/common/jquery-3.0.0.min.js' %}"></script>
+        <script src="{% static 'js/common/bootstrap.min.js' %}"></script>
+
+        <!--Favicon-->
+        <link rel="icon" type="image/png" href="{% static 'common/img/favicon.png' %}" />
+    {% endblock %}
+
+    <title>{% block title %}Log In{% endblock %}</title>
+
+    </head>
+    <body>
+        <div class="fondo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 ">
+                    <div class=" div-login alin-ver text-center">
+                        <div class="login2">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12 text-center">
+                                    <p class="login-titulo">{% block titulo %}Iniciar Sesión{% endblock %}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-div-form ">
+                                    {% block form %}
+                                    <form method="post" action=" {% url 'login' %}">
+                                        {% csrf_token %}
+                                        {% block error_form %}
+                                            {% include "home_form_errors.html" %}
+                                        {% endblock %}
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Username" name="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" placeholder="Password" name="password">
+                                        </div>
+                                        <button type="submit" class="login-btn">INGRESAR</button>
+                                    </form>
+                                    {% block registro %}
+                                    {% endblock %}
+                                    {% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
