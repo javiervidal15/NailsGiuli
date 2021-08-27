@@ -430,7 +430,7 @@ body.fixed-sidebar .navbar-static-side,
 body.canvas-menu .navbar-static-side {
   position: fixed;
   width: 220px;
-  z-index: 2001;
+  z-index: 0;
   height: 100%;
 }
 body.fixed-sidebar.mini-navbar .navbar-static-side {
@@ -494,7 +494,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav li .profile-element a span {
   left: 0;
 }
 body.canvas-menu nav.navbar-static-side {
-  z-index: 2001;
+  z-index: 0;
   background: #2f4050;
   height: 100%;
   position: fixed;
@@ -642,7 +642,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #82B541;
 }
 .btn-success.btn-outline {
-  color: #1c84c6;
+  color: #e01670;
 }
 .btn-info.btn-outline {
   color: #23c6c8;
@@ -706,8 +706,8 @@ fieldset[disabled] .btn-primary.active {
   border-color: ##9ecf5f;
 }
 .btn-success {
-  background-color: #1c84c6;
-  border-color: #1c84c6;
+  background-color: #e01670;
+  border-color: #e01670;
   color: #FFFFFF;
 }
 .btn-success:hover,
@@ -719,8 +719,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-success:active:hover,
 .btn-success.active:hover,
 .btn-success.active:focus {
-  background-color: #1a7bb9;
-  border-color: #1a7bb9;
+  background-color: #db518f;
+  border-color: #db518f;
   color: #FFFFFF;
 }
 .btn-success:active,
@@ -1107,7 +1107,7 @@ button.dim:active:before {
 }
 .label-success,
 .badge-success {
-  background-color: #1c84c6;
+  background-color: #e01670;
   color: #FFFFFF;
 }
 .label-warning,
@@ -2545,7 +2545,7 @@ label.error {
   border-left: 6px solid #f8ac59;
 }
 .inspinia-notify.alert-success {
-  border-left: 6px solid #1c84c6;
+  border-left: 6px solid #e01670;
 }
 .inspinia-notify.alert-danger {
   border-left: 6px solid #ed5565;
@@ -3959,7 +3959,7 @@ table.table-mail tr td {
 }
 .blue-bg,
 .bg-primary {
-  background-color: #1c84c6;
+  background-color: #e01670;
   color: #ffffff;
 }
 .lazur-bg,
@@ -3999,11 +3999,11 @@ table.table-mail tr td {
   border-color: #82B541;
 }
 .panel-success {
-  border-color: #1c84c6;
+  border-color: #e01670;
 }
 .panel-success > .panel-heading {
-  background-color: #1c84c6;
-  border-color: #1c84c6;
+  background-color: #e01670;
+  border-color: #e01670;
   color: #ffffff;
 }
 .panel-info {
@@ -4050,7 +4050,7 @@ table.table-mail tr td {
   background-color: #3dc7ab;
 }
 .progress-bar-success {
-  background-color: #1c84c6;
+  background-color: #e01670;
 }
 .progress-bar-info {
   background-color: #23c6c8;
@@ -4079,7 +4079,7 @@ table.table-mail tr td {
   color: inherit;
 }
 .text-success {
-  color: #1c84c6;
+  color: #e01670;
 }
 .text-info {
   color: #23c6c8;
@@ -4863,7 +4863,7 @@ ul.notes li div {
   color: #82B541;
 }
 .category-list li a .text-primary {
-  color: #1c84c6;
+  color: #e01670;
 }
 .category-list li a .text-info {
   color: #23c6c8;
@@ -5399,7 +5399,7 @@ table.issue-tracker tbody tr td {
   border-left: 3px solid #ed5565;
 }
 .agile-list li.info-element {
-  border-left: 3px solid #1c84c6;
+  border-left: 3px solid #e01670;
 }
 .agile-list li.success-element {
   border-left: 3px solid #82B541;
@@ -7542,7 +7542,7 @@ body.rtls.top-navigation .footer.fixed {
   }
   .body-small.rtls .navbar-static-side {
     display: none;
-    z-index: 2001;
+    z-index: 0;
     position: absolute;
     width: 70px;
   }
@@ -7551,7 +7551,7 @@ body.rtls.top-navigation .footer.fixed {
   }
   .rtls.fixed-sidebar.body-small .navbar-static-side {
     display: none;
-    z-index: 2001;
+    z-index: 0;
     position: fixed;
     width: 220px;
   }
@@ -8345,7 +8345,7 @@ body.md-skin {
   background-color: #ffffff;
 }
 .md-skin.canvas-menu nav.navbar-static-side {
-  z-index: 2001;
+  z-index: 0;
   background: #ffffff;
   height: 100%;
   position: fixed;
@@ -8358,7 +8358,7 @@ body.md-skin {
     min-height: 1200px;
   }
   .navbar-static-side {
-    z-index: 2001;
+    z-index: 0;
     position: absolute;
     width: 220px;
   }
@@ -8375,7 +8375,7 @@ body.md-skin {
     min-height: 1000px;
   }
   .body-small .navbar-static-side {
-    z-index: 2001;
+    z-index: 0;
     position: absolute;
     background-color:#fff;
     width: 220px;
@@ -8403,7 +8403,7 @@ body.md-skin {
   }
   .fixed-sidebar.body-small .navbar-static-side {
     display: none;
-    z-index: 2001;
+    z-index: 0;
     position: fixed;
     width: 220px;
   }

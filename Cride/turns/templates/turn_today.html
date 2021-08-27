@@ -1,0 +1,54 @@
+{% extends "home_index.html" %}
+{%load static %}
+{% block turnos %}active{% endblock %}
+{% block turnos_in %}in{% endblock %}
+{% block turnos_hoy %}active{% endblock %}
+
+{% block here %}Turnos del {{day}}{% endblock %}
+{% block list_here %}
+    <li>
+        Mi Agenda
+    </li>
+    <li class="active">
+        <strong>De hoy</strong>
+    </li>
+{% endblock %}
+
+
+{% block contenido %}
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <select name="services" id="services" class="form-control b-r-xl" >
+                            {%for service in services %}
+                            <option value="{{service.id}}">{{service.get_name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ibox-content inspinia-timeline" id="list-turn">
+                    <div class="timeline-item not-turn sr-only">
+                        <div class="row">
+                            <div class="col-xs-3 date">
+                                <i class="fa fa-exclamation-circle"></i>
+                            </div>
+                            <div class="col-xs-7 content">
+                                <p class="m-b-xs"><strong>No tienes turnos registrados hoy en este servicio.</strong></p>
+                                <p>Recuerda compartir tu link para que tus clientes puedan sacar su turno.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript_custom %}
+<script src="{% static 'js/turns/turn_today.js'%}"></script>
+{% endblock %}

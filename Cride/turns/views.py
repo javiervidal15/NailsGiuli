@@ -11,13 +11,34 @@ from django.urls import reverse
 
 # Create your views here.
 
+def TurnEnd(request,id_client,id_turn):
+    turn = Turn.objects.get(id=id_turn)
+    client = Client.objects.get(id=id_client)
+
+    return render(request,'turn_register_end.html',{"client":client,"turn":turn})
+
 def list_turns(request):
 
     turns = [1,2,3]
     return HttpResponse(str(turns))
 #    return render(request,"template.html",{"name":"javier"})
 
+def TurnsAll(request):
+    services = Service.objects.all()
+    return render(request,'turn_all.html',{'services':services,'motives': TypeUnavailableDay.objects.all()})
 
+def TurnsToday(request):
+    services = Service.objects.all()
+    today = datetime.datetime.now() - datetime.timedelta(hours=-3)
+    day = "%i/%i/%i" %(today.day,today.month,today.year)
+    return render(request,'turn_today.html',{'services':services, 'day': day})
+
+def TurnsTomorrow(request):
+    today = datetime.datetime.now() - datetime.timedelta(hours=-3)
+    tomorrow = today + datetime.timedelta(days=1)
+    tomorrow = tomorrow 
+    tomorrow_turns = Turn.objects.filter(date_turn=tomorrow)
+    return render(request,'turn_tomorrow.html',{'turns':tomorrow_turns})
 
 def turn_new(request):
 
@@ -53,7 +74,7 @@ def turn_new(request):
                         turn.clients.add(client)
 
                 else:
-                    client = Client(email=email,full_name=form.cleaned_data["name"])
+                    client = Client(email=email,full_name=form.cleaned_data["name"],phone=form.cleaned_data["phone"])
                     client.save()
                     turn.clients.add(client)
                     # ACA TAMBIEN HABRIA QUE ENVIAR LA HORA DE INICIO DEL TURNO DESPUES DE OBTENERLA POR EL FORM

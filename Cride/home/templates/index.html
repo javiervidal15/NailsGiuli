@@ -35,13 +35,13 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-8 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
           	<div class="icon">
-          		<a href="index.html" class="logo">
+          		<a class="logo">
           			<h1>Nails</h1>
           		</a>
           	</div>
             <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Giu Gandolfo </h1>
 
-           <a href="https://vimeo.com/45830194" class="btn btn-white btn-outline-white px-4 py-3">VER SERVICIOS</a>
+           <a href="#services" class="btn btn-white btn-outline-white px-4 py-3">VER SERVICIOS</a>
            <a href="{% url 'reservar_turno' %}" class="btn btn-white btn-outline-white  px-4 py-3">RESERVAR TURNO</a>
           </div>
         </div>
@@ -62,13 +62,14 @@
 	          <li class="nav-item"><a href="services.html" class="nav-link">Servicios</a></li>
 	          <li class="nav-item"><a href="work.html" class="nav-link">Trabajos</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contacto</a></li>
+	          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Iniciar Sesion</a></li>
 	        </ul>
 	      </div>
 	    </div>
 	  </nav>
     <!-- END nav -->
 
-    <section class="ftco-section">
+    <section id="services" class="ftco-section">
     	<div class="container">
     		<div class="row">
           <div class="col-md-4 ftco-animate">
@@ -76,7 +77,8 @@
               <div class="icon mb-3"><i class="flaticon-nail-polish font-weight-bold" style="color:pink; font-size: 4rem;"></i></div>
               <div class="media-body">
                 <h3 class="heading">Esculpidas en gel</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p>La uña esculpida en gel es una extension artificial sobre la uña natural, se utilizan moldes para dar la forma y extension deseada
+                fijandola con una luz ultravioleta.</p>
               </div>
             </div>      
           </div>
@@ -85,7 +87,8 @@
               <div class="icon mb-3"><i class="flaticon-nail-polish font-weight-bold" style="color:pink; font-size: 4rem;"></i></div>
               <div class="media-body">
                 <h3 class="heading">Kapping</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p>Consiste en aplicar una fina capa de gel fortificador sobre la uña sin alargar la uña natural sino que acompaña el crecimiento de la misma.
+                </p>
               </div>
             </div>      
           </div>
@@ -94,7 +97,7 @@
               <div class="icon mb-3"><i class="flaticon-nail-polish font-weight-bold" style="color:pink; font-size: 4rem;"></i></div>
               <div class="media-body">
                 <h3 class="heading">Service</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p>Consiste en rellenar el espacio que se genera con el paso del tiempo entre la uña esculpida y la cuticula.</p>
               </div>
             </div>    
           </div>
@@ -103,8 +106,8 @@
             <div class="media d-block text-center block-6 services">
               <div class="icon mb-3"><i class="flaticon-nail-polish font-weight-bold" style="color:pink; font-size: 4rem;"></i></div>
               <div class="media-body">
-                <h3 class="heading">Pies</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <h3 class="heading">Belleza de pies</h3>
+                <p>Consiste en la hidratacion, pulido, esmaltado y/o kapping de uñas del pie.</p>
               </div>
             </div>      
           </div>
@@ -113,7 +116,7 @@
               <div class="icon mb-3"><i class="flaticon-nail-polish font-weight-bold" style="color:pink; font-size: 4rem;"></i></div>
               <div class="media-body">
                 <h3 class="heading">Semipermanente</h3>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                <p>Es un gel acrilico mezclado con esmalte que se aplica sobre la uña natural.</p>
               </div>
             </div>      
           </div>
@@ -128,8 +131,7 @@
 			<div class="container">
 				<div class="row justify-content-end">
 					<div class="col-md-5 discount ftco-animate">
-						<h3>Reservando tu primer turno online</h3>
-						<h2 class="mb-4">15% de descuento</h2>
+						<h2 class="mb-4">Reserva tu turno online</h2>
 						<p><a href="#" class="btn btn-white btn-outline-white px-4 py-3">Reservar turno</a></p>
 					</div>
 				</div>

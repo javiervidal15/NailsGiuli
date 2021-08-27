@@ -125,7 +125,6 @@ def get_turns_service(request):
                'FRIDAY': 'Viernes', 'SATURDAY': 'Sabado', 'SUNDAY': 'Domingo'}
 
 
-
     fecha = datetime.date(year, month, day)
 
     # Obtengo el dia
@@ -135,6 +134,7 @@ def get_turns_service(request):
     service = Service.objects.get(id=id_service)
     # Obtengo una lista de sus dias de trabajo
     days_turn = service.get_days_turn().all()
+
     # Recorro la lista y busco el dia de la semana correspondiente para obtener su horario
     hours = []
     for day in days_turn:
@@ -142,6 +142,7 @@ def get_turns_service(request):
             # Si el dia es igual al dia seleccionado ejemplo: Lunes==Lunes, obtengo sus horas
             hours = day.get_hours().all()
 
+    print(hours)
 
     # Calculamos los turnos disponibles.
 
@@ -198,6 +199,7 @@ def get_calendar(request):
                                                                              service=service),
                                                   fields=('duration','start','state','clients','id','date_turn'),use_natural_foreign_keys=True)
 
+    print(response)
     return JsonResponse(response)
 
 
@@ -215,8 +217,8 @@ def cancel_day(request):
                 service.day_not_available.create(date=date, motive_id=id_motive)
 
             turns = Turn.objects.filter(date_turn=date)
-            for t in turns:
-                t.notify_cancel()
+            #for t in turns:
+                #t.notify_cancel()
             turns.delete()
         else:
             service = Service.objects.get(id=id_service)

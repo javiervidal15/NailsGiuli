@@ -18,34 +18,14 @@
     {% endblock %}
 </head>
 
-<body class="skin-1">
+<body class="skin-3 pace-done">
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span>
-                                {%if photo%}
-                                 <img alt="Profile" class="img-circle" src="{{photo}}" style="height: 48px; width: 48px" />
-                                {%else%}
-                                <i class="fa fa-user fa-3x text-white"></i>
-                                {%endif%}
-                            </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font-bold">{{full_name}}</strong>
-                                </span>
-                                <span class="text-muted text-xs block">{{plan}}<b class="caret"></b></span>
-                            </span>
-                            </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <!--<li><a href="">Suscripción</a></li>-->
-                                <li><a href="">Ajustes Perfil</a></li>
-                                <li class="divider"></li>
-                                <li><a href="">Salir</a></li>
-                            </ul>
+
                         </div>
                         <div class="logo-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -53,53 +33,34 @@
                             </a>
                         </div>
                     </li>
-                    <li class="{% block cliente %} {% endblock %}">
-                        <a  href="">
-                            <i class="fa fa-search"></i>
-                            <span class="nav-label">Buscar turno</span>
-                        </a>
-                    </li>
-                    <li class="{% block home %} {% endblock %}">
-                        <a  href="">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">Inicio</span>
-                        </a>
-                    </li>
                     <li class="{% block turnos %} {% endblock %}">
                         <a  href="#">
                             <i class="fa fa-calendar"></i>
-                            <span class="nav-label">Mi Agenda</span>
+                            <span class="nav-label {% block level_active %} active{% endblock %}">Mi Agenda</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level collapse {% block turnos_in %} {% endblock %}">
-                            <li class="{% block turnos_hoy %} {% endblock %}"><a href="">De hoy</a></li>
-                            <li class="{% block turnos_todos %} {% endblock %}"><a href="">Del mes</a></li>
+                            <li class="{% block turnos_hoy %} {% endblock %}"><a href="{% url 'turn_now' %}">De hoy</a></li>
+                            <li class="{% block turns_tomorrow %} {% endblock %}"><a href="{% url 'turn_tomorrow' %}">De mañana</a></li>
+                            <li class="{% block turnos_todos %} {% endblock %}"><a href="{% url 'turn_all' %}">Del mes</a></li>
                         </ul>
                     </li>
-                    <li class="{% block servicios %} {% endblock %}">
-                        <a  href="">
-                            <i class="fa fa-globe"></i>
-                            <span class="nav-label">Mis Servicios</span>
-                        </a>
-                    </li>
+          
                     <!--<li class="{% block ubicacion %} {% endblock %}">-->
                         <!--<a  href="">-->
                             <!--<i class="fa fa-map-marker"></i>-->
                             <!--<span class="nav-label">Mi Ubicación</span>-->
                         <!--</a>-->
                     <!--</li>-->
+                    <!--
+
                     <li class="{% block configuracion %} {% endblock %}">
                         <a  href="">
                             <i class="fa fa-cog"></i>
                             <span class="nav-label">Configuraciones</span>
                         </a>
                     </li>
-                    <li class="{% block soporte %} {% endblock %}">
-                        <a  href="">
-                            <i class="fa fa-support"></i>
-                            <span class="nav-label">Soporte</span>
-                        </a>
-                    </li>
+                    -->
                 </ul>
             </div>
         </nav>
@@ -112,13 +73,7 @@
                     </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <span>
-                            <a href="" class="no-paddings no-margins" >
-                                <span class="btn btn-success" style="margin-right: 15px;">Mi Pagina</span>
-                            </a>
-                        </span>
-                    </li>
+                   
                     {% if plan_inicia %}
                     <li>
                         <span>
@@ -129,7 +84,7 @@
                     </li>
                     {% endif %}
                     <li>
-                        <span class="m-r-sm text-muted welcome-message">  Bienvenido {{name}}!</span>
+                        <span class="m-r-sm text-muted welcome-message">  Bienvenida!</span>
                     </li>
                     <li>
                         <a href="">

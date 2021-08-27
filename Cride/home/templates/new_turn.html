@@ -24,18 +24,15 @@
 <body id="page-top" style="background-color: white;" class="">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-lg-12">
-            {% if entity.get_image %}
-                <img src="{{entity.get_image}}" class="img-responsive img-circle center-block img-lg m-t-md" >
-            {% endif %}
-            <h2 class="text-center m-b-lg" style="font-family: Assistant;"><strong>{{entity.get_name}}</strong></h2>
+        <div class="col-lg-6 col-lg-offset-3">
+            <img src="{% static 'images/home/nails.jpg' %}" class="img-fluid img-responsive center-block" style="width:16%" alt="Logo">
         </div>
         {% if services %}
-        <div class="col-lg-12">
+        <div class="col-lg-6 col-lg-offset-3">
             <div class="text-center">
                 <div class="ibox">
                         <div class="ibox-content">
-                            <h4>Servicios</h4>
+                            <h1>Servicios</h1>
                             <p class="small">¿Que vas a reservar? </p>
 
                             <ul id="servicio" class="sortable-list connectList agile-list" id="todo">
@@ -44,6 +41,10 @@
                                     <h3 >{{ser.get_name}}</h3>
 
                                     <div class="agile-detail">
+                                        <div class="text-center">
+                                        {{ser.get_description}}
+                                        </div>
+                                        <br>
                                         <div class="text-left">
                                         {% if ser.get_price %}
                                             Precio: ${{ser.get_price}} </br>
@@ -53,8 +54,10 @@
                                         Duracion aprox.: {{ser.get_duration}} min.
                                         </div>
                                         <div>
-                                            <a id="" class="pull-right btn btn-xs btn-success">Reservar</a></br> 
+                                            <a id="" class="pull-right btn btn-sm btn-success btn-rounded">Agendar turno</a>
                                         </div>
+                                        </br> 
+                                        <br>
                                     </div>
                                 </li>
                                   {% endfor %}

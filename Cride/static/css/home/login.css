@@ -8,6 +8,7 @@
 	src: url('fonts/Arimo-Regular.ttf');
 }
 
+
 @media (min-width: 480px) and (max-width: 640px) and (min-height: 320px) and (max-height: 360px){
 
 
@@ -138,7 +139,7 @@
 
 	width: 280px;
 	color: #FFF;
-	background-color: #82b541;
+	background-color: #e01670;
 	height: 35px;
 	font-family: arimo;
 	border-radius: 6px;
@@ -148,7 +149,7 @@
 
 .login-btn:hover{
 
-	background-color: #6d9337;
+	background-color: #ff63a9;
 }
 
 .olvido-pass{

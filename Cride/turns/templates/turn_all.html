@@ -1,0 +1,318 @@
+{% extends "home_index.html" %}
+{% load static %}
+
+{% block head %}
+    {{block.super}}
+    <link href="{% static 'css/dashboard/plugins/fullcalendar/fullcalendar.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dashboard/plugins/fullcalendar/fullcalendar.print.css' %}" rel='stylesheet' media='print'>
+    <!-- Sweet Alert -->
+    <link href="{% static 'css/dashboard/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block turnos %}active{% endblock %}
+{% block turnos_in %}in{% endblock %}
+{% block turnos_todos %}active{% endblock %}
+
+{% block here %}Mi calendario{% endblock %}
+{% block list_here %}
+    <li>
+        Mi Agenda
+    </li>
+    <li class="active">
+        <strong>Del mes</strong>
+    </li>
+{% endblock %}
+
+
+{% block contenido %}
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInDown">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Arrastra los eventos</h5>
+                </div>
+                <div class="ibox-content">
+                    <div id='external-events'>
+                        <p>Si arrastras los eventos a un dia este se cancelará, si ya se habian reservado turnos en ese día porfavor informale a esas personas que tendran que reagendar.</p>
+                        <h3>Todos los servicios</h3>
+                        {%for motive in motives %}
+                            {%if motive.is_all_services %}
+                                <div id="{{motive.id}}" class='external-event bg-danger'>{{motive.get_name}}</div>
+                            {%endif%}
+                        {%endfor%}
+                        <h3>Este servicio</h3>
+                        {%for motive in motives %}
+                            {%if motive.is_all_services %}
+                                <div id="{{motive.id}}" class='external-event bg-warning'>{{motive.get_name}}</div>
+                            {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="ibox-title">
+                <div class="ibox-tools">
+                    <select name="services" id="services" class="form-control b-r-xl" >
+                        {%for service in services %}
+                        <option value="{{service.id}}">{{service.get_name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript_custom %}
+<script src="{% static 'js/dashboard/plugins/fullcalendar/moment.min.js' %}"></script>
+<!-- jQuery UI custom -->
+<script src="{% static 'js/dashboard/jquery-ui.custom.min.js' %}"></script>
+
+<!-- Full Calendar -->
+<script src="{% static 'js/dashboard/plugins/fullcalendar/moment.min.js' %}"></script>
+<script src="{% static 'js/dashboard/plugins/fullcalendar/fullcalendar.min.js' %}"></script>
+<script src="{% static 'js/dashboard/plugins/fullcalendar/locale-all.js' %}"></script>
+
+<!-- Sweet alert -->
+<script src="{% static 'js/dashboard/plugins/sweetalert/sweetalert.min.js' %}"></script>
+
+<script>
+
+$(document).ready(function() {
+
+    /* Inicializa los eventos externos
+     -----------------------------------------------------------------*/
+
+
+    $('#external-events div.external-event').each(function() {
+        // almacenar datos por lo que el calendario sabe para hacer un evento de una baja
+        $(this).data('event', {
+            title: $.trim($(this).text()), // Utilizar el texto del elemento como título del evento
+            stick: true // Mantener cuando el usuario navega (vea docs en el método renderEvent)
+        });
+
+        // Hacer que el evento se arrastre mediante jQuery UI
+        $(this).draggable({
+            zIndex: 1111999,
+            revert: true,      // Hará que el evento vuelva a su
+            revertDuration: 0  // posición original después de la resistencia
+        });
+
+    });
+
+    changeCalendar();
+
+    $("#services").change(function(){
+        changeCalendar();
+    });
+
+    function changeCalendar(){
+
+	    var url = "/turns/ajax/get_calendar/";
+	    var pk_service = $("#services").val();
+	    if (pk_service) {
+	        var request = $.ajax({
+	            type: "GET",
+	            url: url,
+	            data: {
+	                "pk_service": pk_service,
+	            },
+	        })
+	        request.done(function(response) {
+	        	initCalendar(response);
+	   		});
+   		}
+	}	
+
+   	function initCalendar(response){
+	 	//Dias que no se van a mostrar
+        let hiddenDays = new Array();
+        //Horas de trabajo
+        let businessHours = new Array();
+        //Si se procesan los dias del mes siguiente
+        let showNonCurrentDates=false;
+
+        let days_turn = JSON.parse(response.days_turn);
+        let day_turn,id_day,hour;
+        for(let i =0; i<days_turn.length; i++){
+        	day_turn = days_turn[i]["fields"];
+        	id_day = day_turn.day;
+            //Si esta disponible el dia se agrega las horas que esta disponible
+            if(day_turn.available){
+            	for (let j = day_turn.hours.length - 1; j >= 0; j--) {
+            		hour = day_turn.hours[j];
+                	businessHours.push({dow:[id_day], start: hour[0], end:  hour[1]});	
+            	}
+            }else{
+            	//Si no se lo marca para que no aparezaca
+                hiddenDays.push(id_day);                	
+            }
+        }
+
+        //Turnos asignados
+        let events = new Array();
+        let turns = JSON.parse(response.turns);
+        let turn,client,date,y,d,m,start,end,h,min,duration,backgroundColor,borderColor;
+        for(let i =0; i<turns.length; i++){
+        	//Un turno
+        	turn = turns[i]["fields"];
+        	//Su fecha
+        	date = turn.date_turn.split("-");
+        	y = parseInt(date[0]);
+        	m = parseInt(date[1]-1);
+        	d = parseInt(date[2]);
+        	//Su hora de inicio
+        	hour = turn.start.split(":");
+        	h = parseInt(hour[0]);
+        	min = parseInt(hour[1]);
+        	//Duracion
+        	duration = parseInt(turn.duration);
+        	//Dia y hora de inicio y fin
+        	start = new Date(y, m, d, h, min);
+        	end = new Date(y, m, d, h, min + duration);
+
+            //Color de fondo
+            if(turn.state=="Asignado"){
+                borderColor='green';
+                backgroundColor='green';
+            }else{
+                borderColor='blue';
+                backgroundColor='blue';
+            }
+
+        	//Recorro los clientes
+        	for(let j =0; j<turn.clients.length; j++){
+        		client = turn.clients[j];
+        		//Agrego un turno por cliente
+        		events.push({
+                    title: client[0],
+                    start: start,
+                    end: end,
+                    allDay: false,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+            	});	
+        	}            	
+        }
+
+        //Dias no disponible
+        let days_not = JSON.parse(response.days_not_available);
+        for(let i =0; i<days_not.length; i++){
+        	d = days_not[i]["fields"];
+			        	
+        	date = d.date.split("-");
+        	y = parseInt(date[0]);
+        	m = parseInt(date[1]-1);
+        	day = parseInt(date[2]);
+        	start = new Date(y, m, day,00,00);
+        	end = new Date(y, m, day,24,00);
+
+        	if(d.motive[1]){
+	            borderColor='red';
+                backgroundColor='red';
+	        }else{
+	        	borderColor='yellow';
+                backgroundColor='yellow';
+        	}
+
+        	events.push({
+                title: d.motive[0],
+                start: start,
+                end:end,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+            });	
+        	
+        }
+        
+        /* initialize the calendar
+         -----------------------------------------------------------------*/
+        $('#calendar').fullCalendar('destroy');
+        date = new Date();
+        d = date.getDate();
+        m = date.getMonth();
+        y = date.getFullYear();
+
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            hiddenDays: hiddenDays,
+            businessHours: businessHours,
+            showNonCurrentDates: showNonCurrentDates,
+            events: events,
+            editable: false,
+            timezone: 'local',
+            locale: 'es',
+            droppable: true, // Esto permite que las cosas se dejen caer en el calendario
+            drop: function(date) {
+            	askCancelDay(date,$(this).attr("id"))
+                
+            },
+        });
+    }
+   	
+
+   	function askCancelDay(date,pk_motive){
+   		swal({
+            title: "¿Estas seguro?",
+            text: "No podras recibir turnos ese dia y si hay personas agendedas se les informara para reagendar",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Si, hazlo!",
+            cancelButtonText: "Cancelar!",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+        }, function (isConfirm) {
+            if(isConfirm){
+            	cancelDay(pk_motive,date._d);
+            }else{
+                swal("Cancelado", "No se ha cancelado su dia :)", "error");
+            }
+        });
+   	}
+
+   	function cancelDay(pk_motive,date){
+   		let url = "/turns/ajax/cancel_day/";
+   		
+   		date = date.getFullYear() + "-" + ("0" + String((date.getMonth()+1))).slice(-2) + "-" + ("0" + String(date.getDate()+1)).slice(-2);
+   		let pk_service = $("#services").val();
+   		if (pk_motive) {
+        	var request = $.ajax({
+	            type: "GET",
+	            url: url,
+	            data: {
+	                "pk_motive": pk_motive,
+	                "date": date,
+	                'pk_service': pk_service
+	            },
+        });
+        request.done(function(response) {
+        	if(response.valid){
+        		swal("Se ha cancelado correctamente el dia","Si existia alguna persona agendada se le a informado para reagendar ","success");    
+        	}else{
+        		swal("Error","Su dia no ha sido cancelado", "error");    
+        	}
+    	});
+   		}
+   	}
+
+});
+</script>
+
+{% endblock %}

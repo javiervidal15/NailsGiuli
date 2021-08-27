@@ -57,6 +57,7 @@ class Hour(models.Model):
 class Client(models.Model):
     full_name = models.CharField(max_length=254)
     email = models.EmailField()
+    phone = models.CharField(max_length=12,default="")
 
     def natural_key(self):
         return (self.full_name, self.email)
@@ -69,6 +70,9 @@ class Client(models.Model):
 
     def get_email(self):
         return self.email
+    
+    def get_phone(self):
+        return self.phone
 
 
 class TypeUnavailableDay(models.Model):
@@ -103,6 +107,7 @@ class Service(models.Model):
     days_turn = models.ManyToManyField(DayTurn)
     max_days = models.IntegerField(default=7)
     day_not_available = models.ManyToManyField(DayNotAvailable)
+    description = models.CharField(max_length=512,default="",null=True,blank=True)
 
     def natural_key(self):
         return (self.duration, self.days_turn, self.day_not_available)
@@ -144,6 +149,8 @@ class Service(models.Model):
     def delete_day_turn(self):
         self.days_turn.clear()
 
+    def get_description(self):
+        return self.description
 
 class StateTurn(models.Model):
     name = models.CharField(max_length=15)
@@ -203,6 +210,9 @@ class Turn(models.Model):
 
     def get_clients(self):
         return self.clients
+
+    def get_client_name(self):
+        return self.clients.first()
 
     def get_state(self):
         return self.state

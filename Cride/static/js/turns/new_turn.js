@@ -7,7 +7,6 @@ $(document).ready(function(){
             $('#id_turn_service').val(id_service);
             getDates(id_service);
     
-    
             });
     
             $('#id_turn_date').change(function(){
@@ -16,12 +15,13 @@ $(document).ready(function(){
     
             });
     
-        function createTurns(hora1, hora2, dic, duracion){
+        function createTurns(hora1, hora2, dic, duracion,day){
+            debugger;
         //Obtengo hora y minuto de inicio y hora y minuto de fin
             let hour_aux_start = hora1.split(":"),
             hour_aux_end = hora2.split(":"),
             //Creo dos nuevas horas
-            t1 = new Date(),
+            t1 = new Date();
             t2 = new Date();
     
             today = new Date();
@@ -31,13 +31,16 @@ $(document).ready(function(){
             t2.setHours(parseInt(hour_aux_end[0]));
             t2.setMinutes(parseInt(hour_aux_end[1]));
             //Mientras que t1 (Hora de inicio que se le suma la duracion) sea distinta de la hora final
-            while((t1.getHours()!=t2.getHours()) || (t1.getMinutes()!= t2.getMinutes())){
+            while((t1.getHours()<=t2.getHours())){
                 //Creo un posible turno
                 let turno = ("0"+String(t1.getHours())).slice(-2) +":"+ ("0"+String(t1.getMinutes())).slice(-2);
                 //Pregunto si ese turno ya existe en el diccionario de turnos asignados
                 if(dic.indexOf(turno) == (-1)){
                     //Agrego el turno al select
                     //Pregunto si es mayor a ahora
+                    if(day!=today.getDate){
+                        $('#id_turn_hour').append(new Option(turno, turno, false, false));
+                    }
                     if(t1>today){
                         $('#id_turn_hour').append(new Option(turno, turno, false, false));
                     }
@@ -104,12 +107,12 @@ $(document).ready(function(){
                     };
                     selected_date = $('#id_turn_date').val();
     
-                    getTurns(id_service,selected_date);
+                    getTurns(id_service,selected_date,day);
     
                 });
         }
         //Funcion que obtiene los turnos disponibles para el servicio correspondiente al id recibido por parametro
-        function getTurns(id_service,selected_date) {
+        function getTurns(id_service,selected_date,day) {
     
             var url = "/turns/ajax/get_service_turns/"
                 var request = $.ajax({
@@ -121,33 +124,32 @@ $(document).ready(function(){
                     },
                 });
                 request.done(function(response) {
+                    console.log(response);
+                
                     let duracion = response.duration;
                     let turnos = response.turnos.split(",");
                     let horas = JSON.parse(response.horas);
                     $('#id_turn_hour').empty();
-    
-    
-    
-    
+
                     let dic = new Array();
                     for (let i = 0; i < turnos.length-1; i++) {
                         dic.push(turnos[i]);
                     }
-    
+                    //Separada en dos porque el objeto Hours cargado en la base de datos representa la franja horaria en la que trabaja por ejemplo: De 08:00:00 a 19:00:00
                     let hora1 = horas[0].fields.start;
                     let hora2 = horas[0].fields.end;
-    
-                    createTurns(hora1,hora2,dic,duracion);
+                        
+                    createTurns(hora1,hora2,dic,duracion,day);
     
                     let hora3 = "";
                     let hora4 = "";
                     //Si trabaja en dos horarios diferentes vuelve a hacer lo mismo con esas horas
-    
+                    //La franja horaria puede ser de 08:00:00 a 13:00:00 y de 15:00:00 a 19:00:00
                     if(horas.length==2){
     
                         hora3 = horas[1].fields.start;
                         hora4 = horas[1].fields.end;
-                        createTurns(hora3,hora4,dic,duracion);
+                        createTurns(hora3,hora4,dic,duracion,day);
     
                     }
     
