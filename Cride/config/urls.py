@@ -15,4 +15,4 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     url(r'^home/', include('home.urls')),
     url(r'^turns/', include('turns.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

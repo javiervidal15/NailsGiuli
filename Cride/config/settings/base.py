@@ -1,15 +1,27 @@
 """Base settings to build other settings files upon."""
 
 import environ
+import os
 
-ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path('cride')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
 
-# Base
-DEBUG = env.bool('DJANGO_DEBUG', False)
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
+DEBUG = os.environ.get("DEBUG")=="True"
+
+
+#Email configuracion login
+AUTH_EMAIL_VERIFICATION = True
+#AUTH_USER_MODEL = "accounts.MyUser"
+
+#SITE
+SITE_ID = 1
+
+
+# Base
 # Language and timezone
 TIME_ZONE = 'America/Buenos_Aires'
 LANGUAGE_CODE = 'en-us'
@@ -18,12 +30,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
-# DATABASES
-DATABASES = {
-    'default': env.db('DATABASE_URL'),
-}
-DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLs
 ROOT_URLCONF = 'config.urls'
@@ -37,7 +43,6 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django.contrib.admin',
 ]
 
@@ -83,28 +88,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Static files
-STATIC_ROOT = str(ROOT_DIR('staticfiles'))
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    str(ROOT_DIR.path('static')),
-]
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-
-# Media
-MEDIA_ROOT = str(APPS_DIR('media'))
-MEDIA_URL = '/media/'
 
 # Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            str(APPS_DIR.path('templates')),
-        ],
+        'DIRS': [os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),],
         'OPTIONS': {
             'debug': DEBUG,
             'loaders': [
@@ -141,14 +130,3 @@ ADMINS = [
 ]
 MANAGERS = ADMINS
 
-# Celery
-# INSTALLED_APPS += ['cride.taskapp.celery.CeleryAppConfig']
-# if USE_TZ:
-#     CELERY_TIMEZONE = TIME_ZONE
-# CELERY_BROKER_URL = env('CELERY_BROKER_URL')
-# CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-# CELERY_ACCEPT_CONTENT = ['json']
-# CELERY_TASK_SERIALIZER = 'json'
-# CELERY_RESULT_SERIALIZER = 'json'
-# CELERYD_TASK_TIME_LIMIT = 5 * 60
-# CELERYD_TASK_SOFT_TIME_LIMIT = 60
